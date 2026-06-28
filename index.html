@@ -143,8 +143,18 @@
     max-width:480px;
   }
   .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
-  .hero-visual{display:flex;justify-content:center;}
+  .hero-visual{display:flex;flex-direction:column;align-items:center;}
   .hero-visual svg{width:100%;max-width:420px;height:auto;}
+  .node-text-group{transition:opacity .26s ease;}
+  .hero-visual-caption{
+    margin-top:18px;font-family:var(--font-mono);font-size:13px;
+    color:var(--cream-soft);text-align:center;max-width:340px;
+  }
+  #hero-caption-word{
+    color:var(--amber-soft);font-weight:500;
+    transition:opacity .26s ease;
+    display:inline-block;
+  }
 
   .diagram-box{fill:var(--navy-800);stroke:var(--teal);stroke-width:1.4;}
   .diagram-box.hub{fill:var(--navy-700);stroke:var(--amber);}
@@ -224,7 +234,55 @@
   }
   .section-dark .card p{color:var(--cream-soft);}
 
-  /* ---------- Cómo trabajo ---------- */
+  .card.expandable{padding:0;}
+  .card.expandable summary{
+    list-style:none;cursor:pointer;
+    padding:28px 26px 30px;
+    position:relative;
+  }
+  .card.expandable summary::-webkit-details-marker{display:none;}
+  .card.expandable summary::marker{content:"";}
+  .toggle-mark{
+    position:absolute;top:26px;right:24px;
+    font-family:var(--font-mono);font-size:18px;color:var(--amber);
+    transition:transform .2s ease;
+  }
+  .card.expandable[open] .toggle-mark{transform:rotate(45deg);}
+  .card.expandable .summary-hint{
+    margin-top:12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+    color:var(--teal);text-transform:uppercase;
+  }
+  .project-detail{
+    padding:0 26px 28px;
+    border-top:1px solid var(--line-dark);
+    margin-top:4px;
+  }
+  .project-detail .project-value{
+    font-size:14.5px;color:var(--amber-soft);line-height:1.5;
+    margin-top:20px;font-weight:500;
+  }
+  .project-modules{
+    margin:18px 0 0;padding:0;list-style:none;
+  }
+  .project-modules li{
+    font-size:13.5px;color:var(--cream-soft);line-height:1.5;
+    padding-left:16px;position:relative;margin-bottom:9px;
+  }
+  .project-modules li::before{
+    content:"—";position:absolute;left:0;color:var(--teal);
+  }
+  .project-stat{
+    margin-top:18px;font-size:14px;color:var(--cream);
+    border-left:2px solid var(--amber);padding-left:12px;line-height:1.5;
+  }
+  .project-diff{
+    margin-top:14px;font-size:13px;color:var(--teal);font-style:italic;line-height:1.5;
+  }
+  .project-stack{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;}
+  .stack-tag{
+    font-family:var(--font-mono);font-size:11px;color:var(--cream-soft);
+    border:1px solid var(--line-dark);padding:4px 9px;border-radius:2px;
+  }
   .steps{
     margin-top:48px;
     display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
@@ -318,35 +376,91 @@
       </div>
     </div>
     <div class="hero-visual" aria-hidden="true">
-      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-        <line class="diagram-line d1" x1="170" y1="116" x2="190" y2="212"/>
-        <line class="diagram-line d2" x1="300" y1="116" x2="290" y2="212"/>
-        <line class="diagram-line d3" x1="170" y1="360" x2="190" y2="268"/>
-        <line class="diagram-line d4" x1="300" y1="360" x2="290" y2="268"/>
+      <svg id="hero-diagram" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <line class="diagram-line d1" x1="180" y1="116" x2="180" y2="206"/>
+        <line class="diagram-line d2" x1="300" y1="116" x2="300" y2="206"/>
+        <line class="diagram-line d3" x1="180" y1="360" x2="180" y2="268"/>
+        <line class="diagram-line d4" x1="300" y1="360" x2="300" y2="268"/>
 
-        <circle class="diagram-node" cx="190" cy="212" r="3"/>
-        <circle class="diagram-node" cx="290" cy="212" r="3"/>
-        <circle class="diagram-node" cx="190" cy="268" r="3"/>
-        <circle class="diagram-node" cx="290" cy="268" r="3"/>
+        <circle class="diagram-node" cx="180" cy="206" r="3"/>
+        <circle class="diagram-node" cx="300" cy="206" r="3"/>
+        <circle class="diagram-node" cx="180" cy="268" r="3"/>
+        <circle class="diagram-node" cx="300" cy="268" r="3"/>
 
-        <rect class="diagram-box" x="40" y="60" width="130" height="56" rx="2"/>
-        <text class="diagram-text" x="105" y="89">EQUIPOS</text>
+        <g class="node-text-group">
+          <rect class="diagram-box" x="30" y="60" width="150" height="56" rx="2"/>
+          <text id="node-tl" class="diagram-text" x="105" y="89">EQUIPOS</text>
 
-        <rect class="diagram-box" x="300" y="60" width="140" height="56" rx="2"/>
-        <text class="diagram-text" x="370" y="89">LICENCIAS</text>
+          <rect class="diagram-box" x="300" y="60" width="150" height="56" rx="2"/>
+          <text id="node-tr" class="diagram-text" x="375" y="89">LICENCIAS</text>
 
-        <rect class="diagram-box" x="30" y="360" width="140" height="56" rx="2"/>
-        <text class="diagram-text" x="100" y="389">TICKETS</text>
+          <rect class="diagram-box" x="30" y="360" width="150" height="56" rx="2"/>
+          <text id="node-bl" class="diagram-text" x="105" y="389">TICKETS</text>
 
-        <rect class="diagram-box" x="300" y="360" width="140" height="56" rx="2"/>
-        <text class="diagram-text" x="370" y="389">CONTRATOS</text>
+          <rect class="diagram-box" x="300" y="360" width="150" height="56" rx="2"/>
+          <text id="node-br" class="diagram-text" x="375" y="389">CONTRATOS</text>
+        </g>
 
         <rect class="diagram-box hub" x="180" y="206" width="120" height="62" rx="2"/>
         <text class="diagram-text hub-text" x="240" y="232">SISTEMA</text>
         <text class="diagram-text hub-text" x="240" y="250" style="font-size:10px;letter-spacing:.12em;">HOMIZEN</text>
       </svg>
+      <p class="hero-visual-caption">Un mismo sistema, adaptado a <span id="hero-caption-word">Gestión de TI</span></p>
     </div>
   </div>
+  <script>
+    (function(){
+      var scenes = [
+        { caption: "Gestión de TI",          tl: "EQUIPOS",       tr: "LICENCIAS",  bl: "TICKETS",       br: "CONTRATOS" },
+        { caption: "Finanzas familiares",    tl: "PRESUPUESTO",   tr: "INGRESOS",   bl: "GASTOS",        br: "REPORTES" },
+        { caption: "Control de producción",  tl: "ETAPAS",        tr: "INSUMOS",    bl: "CALIDAD",       br: "TRAZABILIDAD" },
+        { caption: "Planificación docente",  tl: "CLASES",        tr: "UNIDADES",   bl: "HORARIOS",      br: "EVALUACIONES" }
+      ];
+      var i = 0;
+      var svg = document.getElementById('hero-diagram');
+      var group = svg ? svg.querySelector('.node-text-group') : null;
+      var captionWord = document.getElementById('hero-caption-word');
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!svg || !group || !captionWord || reduced) return;
+
+      var nodes = {
+        tl: document.getElementById('node-tl'),
+        tr: document.getElementById('node-tr'),
+        bl: document.getElementById('node-bl'),
+        br: document.getElementById('node-br')
+      };
+      var lines = svg.querySelectorAll('.diagram-line');
+
+      function replayLines(){
+        lines.forEach(function(line){ line.style.animationName = 'none'; });
+        void svg.getBoundingClientRect();
+        requestAnimationFrame(function(){
+          lines.forEach(function(line){ line.style.animationName = 'draw'; });
+        });
+      }
+
+      function showScene(scene){
+        nodes.tl.textContent = scene.tl;
+        nodes.tr.textContent = scene.tr;
+        nodes.bl.textContent = scene.bl;
+        nodes.br.textContent = scene.br;
+        captionWord.textContent = scene.caption;
+        replayLines();
+      }
+
+      setInterval(function(){
+        if (document.hidden) return;
+        i = (i + 1) % scenes.length;
+        group.style.opacity = 0.15;
+        captionWord.style.opacity = 0.15;
+        setTimeout(function(){
+          showScene(scenes[i]);
+          group.style.opacity = 1;
+          captionWord.style.opacity = 1;
+        }, 260);
+      }, 4200);
+    })();
+  </script>
 </section>
 
 <section id="servicios" class="section section-light">
@@ -396,14 +510,39 @@
         <p>Sistema web para controlar presupuesto, gastos e ingresos del hogar, con reportes simples para tomar decisiones.</p>
       </article>
 
-      <article class="card">
-        <p class="card-tag">Gestión TI</p>
-        <h3>Gestión de TI</h3>
-        <p>Empezó como un inventario de equipos y creció hasta administrar licencias, contratos y mesa de ayuda en un solo sistema.</p>
-      </article>
+      <details class="card expandable">
+        <summary>
+          <p class="card-tag">Gestión TI</p>
+          <h3>Gestión de TI</h3>
+          <p>Empezó como un inventario de equipos y creció hasta administrar licencias, contratos y mesa de ayuda en un solo sistema.</p>
+          <p class="summary-hint">Ver detalle</p>
+          <span class="toggle-mark">+</span>
+        </summary>
+        <div class="project-detail">
+          <p class="project-value">Reduce el tiempo de gestión TI en empresas medianas sin necesidad de herramientas externas.</p>
+          <ul class="project-modules">
+            <li>Inventario de equipos, servidores, impresoras, tablets y teléfonos</li>
+            <li>Control de licencias Office, SAP y Autodesk con depreciación SII</li>
+            <li>Gestión de contratos de internet con alertas de vencimiento</li>
+            <li>Mesa de ayuda con tickets, SLA y tiempos de resolución</li>
+            <li>Onboarding / offboarding de personal con flujo de pasos</li>
+            <li>Dashboards con exportación a PDF por período</li>
+            <li>Roles de acceso: administrador, técnico y visualizador</li>
+          </ul>
+          <p class="project-stat">Gestiona +280 equipos, licencias y contratos de varias empresas desde un solo panel.</p>
+          <p class="project-diff">Sin dependencia de servicios en la nube. Se instala en la red interna de la empresa.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Flask</span>
+            <span class="stack-tag">SQLite</span>
+            <span class="stack-tag">Bootstrap 5</span>
+            <span class="stack-tag">ReportLab</span>
+          </div>
+        </div>
+      </details>
 
       <article class="card">
-        <p class="card-tag">Educación</p>
+        <p class="card-tag">Educación <span class="card-badge">En desarrollo</span></p>
         <h3>Planificación docente</h3>
         <p>Herramienta web para que profesores organicen su planificación anual de clases.</p>
       </article>
@@ -448,7 +587,7 @@
     <h2>¿Tienes un proceso que hoy se gestiona a mano?</h2>
     <p>Cuéntame qué necesitas y vemos si tiene sentido construirlo.</p>
 
-    <form id="contact-form" class="contact-form" action="https://formspree.io/f/mlgynnga" method="POST">
+    <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="form-row">
         <input type="text" name="name" placeholder="Tu nombre" required>
         <input type="email" name="email" placeholder="Tu correo" required>
