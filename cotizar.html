@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuéntame tu proyecto — Homizen</title>
+<meta name="description" content="Completa este formulario para que Homizen te prepare una cotización concreta, basada en lo que realmente necesitas.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0E1A2B;
+    --navy-800:#172a40;
+    --paper:#EEF0EC;
+    --paper-card:#F7F8F5;
+    --ink:#142233;
+    --ink-soft:#3c4a5c;
+    --cream:#ECE9E1;
+    --cream-soft:#b9c2c9;
+    --amber:#D98E2B;
+    --amber-soft:#F2C572;
+    --teal:#5C7480;
+    --line-light:rgba(20,34,51,0.14);
+    --line-dark:rgba(236,233,225,0.14);
+    --font-display:"Space Grotesk", sans-serif;
+    --font-body:"IBM Plex Sans", sans-serif;
+    --font-mono:"IBM Plex Mono", monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:var(--font-body);color:var(--ink);
+    background:var(--paper);-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.12;letter-spacing:-0.01em;}
+
+  .nav{
+    background:var(--navy-900);padding:18px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav a.back{font-size:14px;color:var(--cream-soft);}
+  .nav .logo{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--cream);display:flex;align-items:center;gap:8px;}
+  .nav .logo img{width:24px;height:24px;border-radius:6px;display:block;}
+  .logo-dot{color:var(--amber);}
+
+  .wrap{max-width:680px;margin:0 auto;padding:64px 24px 100px;}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 14px;
+  }
+  .intro h1{font-size:clamp(26px,4vw,36px);color:var(--ink);}
+  .intro p{margin-top:16px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:560px;}
+
+  fieldset{
+    border:none;margin:0;padding:0;
+  }
+  .fblock{
+    margin-top:44px;padding-top:28px;border-top:1px solid var(--line-light);
+  }
+  .fblock-num{
+    font-family:var(--font-mono);font-size:12px;color:var(--amber);letter-spacing:.08em;
+  }
+  .fblock h2{font-size:19px;margin-top:8px;color:var(--ink);}
+  .fblock-hint{font-size:13.5px;color:var(--ink-soft);margin-top:6px;}
+
+  label{
+    display:block;font-size:13.5px;font-weight:500;color:var(--ink);margin:20px 0 7px;
+  }
+  label.first{margin-top:18px;}
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select, textarea{
+    width:100%;background:var(--paper-card);
+    border:1px solid var(--line-light);color:var(--ink);
+    font-family:var(--font-body);font-size:14.5px;
+    padding:12px 13px;border-radius:3px;
+  }
+  textarea{resize:vertical;}
+  input:focus, select:focus, textarea:focus{outline:none;border-color:var(--amber);}
+  input::placeholder, textarea::placeholder{color:#9aa6ad;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .check-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;
+  }
+  .check-item{
+    display:flex;align-items:flex-start;gap:9px;
+    font-size:14px;color:var(--ink);
+    background:var(--paper-card);border:1px solid var(--line-light);
+    padding:11px 12px;border-radius:3px;
+  }
+  .check-item input{width:auto;margin-top:2px;accent-color:var(--amber);}
+  .radio-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .radio-pill{
+    font-size:13.5px;color:var(--ink);
+    background:var(--paper-card);border:1px solid var(--line-light);
+    padding:9px 16px;border-radius:20px;display:flex;align-items:center;gap:7px;
+  }
+  .radio-pill input{accent-color:var(--amber);}
+
+  button[type="submit"]{
+    margin-top:40px;width:100%;
+    background:var(--amber);color:var(--navy-900);
+    font-family:var(--font-body);font-weight:600;font-size:15.5px;
+    border:none;padding:16px;border-radius:3px;cursor:pointer;
+    transition:background .15s ease;
+  }
+  button[type="submit"]:hover{background:var(--amber-soft);}
+  .form-status{margin-top:16px;font-size:14px;text-align:center;min-height:18px;}
+  .privacy-note{margin-top:14px;font-size:12.5px;color:var(--ink-soft);text-align:center;}
+
+  .hp-field{position:absolute;left:-9999px;opacity:0;}
+
+  footer{
+    background:var(--navy-900);color:var(--teal);text-align:center;
+    padding:24px;font-family:var(--font-mono);font-size:12px;
+  }
+
+  @media (max-width:560px){
+    .row2, .check-grid{grid-template-columns:1fr;}
+    .wrap{padding:44px 18px 80px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="index.html"><img src="assets/firma-logo.png" alt="">homizen<span class="logo-dot">.cl</span></a>
+  <a class="back" href="index.html">← Volver al sitio</a>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <p class="eyebrow">Levantamiento de requerimientos</p>
+    <h1>Cuéntame tu proyecto, con detalle.</h1>
+    <p>Mientras más preciso sea esto, más concreta va a ser la cotización que te prepare — y menos sorpresas de alcance vamos a tener más adelante. No es un compromiso de nada, es el punto de partida para conversar en serio.</p>
+  </div>
+
+  <form id="brief-form" action="https://formspree.io/f/meebzjww" method="POST">
+
+    <div class="fblock">
+      <p class="fblock-num">01</p>
+      <h2>Tus datos</h2>
+      <label class="first">Nombre</label>
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <div class="row2">
+        <div>
+          <label>Correo</label>
+          <input type="email" name="correo" placeholder="tu@correo.cl" required>
+        </div>
+        <div>
+          <label>Teléfono (opcional)</label>
+          <input type="tel" name="telefono" placeholder="+56 9 ...">
+        </div>
+      </div>
+      <label>Empresa u organización</label>
+      <input type="text" name="empresa" placeholder="Nombre de la empresa">
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">02</p>
+      <h2>Tamaño de la operación</h2>
+      <div class="row2">
+        <div>
+          <label class="first">¿Cuántos usuarios usarán el sistema?</label>
+          <input type="number" name="num_usuarios" placeholder="Ej: 15" min="1">
+        </div>
+        <div>
+          <label class="first">¿Cuántas sedes o ubicaciones?</label>
+          <input type="number" name="num_sedes" placeholder="Ej: 1" min="1">
+        </div>
+      </div>
+      <label>¿Tienen servidor propio o necesitan hosting?</label>
+      <div class="radio-row">
+        <label class="radio-pill"><input type="radio" name="servidor" value="Servidor propio"> Servidor propio</label>
+        <label class="radio-pill"><input type="radio" name="servidor" value="Necesito hosting"> Necesito hosting</label>
+        <label class="radio-pill"><input type="radio" name="servidor" value="No estoy seguro"> No estoy seguro</label>
+      </div>
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">03</p>
+      <h2>¿Qué quieres gestionar?</h2>
+      <p class="fblock-hint">Marca todo lo que aplique.</p>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" name="modulos" value="Inventario de equipos"> Inventario de equipos</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Licencias de software"> Licencias de software</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Contratos con proveedores"> Contratos con proveedores</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Mesa de ayuda / tickets"> Mesa de ayuda / tickets</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Personal (altas/bajas)"> Personal (altas/bajas)</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Finanzas / presupuesto"> Finanzas / presupuesto</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Control de procesos / producción"> Control de procesos / producción</label>
+        <label class="check-item"><input type="checkbox" name="modulos" value="Dashboards / reportería"> Dashboards / reportería</label>
+      </div>
+      <label>Otro (especifica)</label>
+      <input type="text" name="modulos_otro" placeholder="Algo que no esté en la lista de arriba">
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">04</p>
+      <h2>Cómo lo hacen hoy</h2>
+      <label class="first">¿Cómo gestionan esto actualmente?</label>
+      <div class="radio-row">
+        <label class="radio-pill"><input type="radio" name="situacion_actual" value="Excel / planillas"> Excel / planillas</label>
+        <label class="radio-pill"><input type="radio" name="situacion_actual" value="Papel"> Papel</label>
+        <label class="radio-pill"><input type="radio" name="situacion_actual" value="Otro sistema"> Otro sistema</label>
+        <label class="radio-pill"><input type="radio" name="situacion_actual" value="No tienen proceso"> No tienen proceso</label>
+      </div>
+      <label>¿Qué es lo que más les complica del proceso actual?</label>
+      <textarea name="dolor_actual" rows="3" placeholder="Ej: perdemos tiempo buscando información, no hay trazabilidad, se duplica el trabajo..."></textarea>
+      <label>¿Qué reportes necesitan, y con qué frecuencia?</label>
+      <textarea name="reportes" rows="3" placeholder="Ej: reporte mensual de gastos por categoría, reporte semanal de tickets abiertos..."></textarea>
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">05</p>
+      <h2>Integraciones y datos</h2>
+      <label class="first">¿Necesita conectarse con otro sistema? (ERP, Active Directory, correo, etc.)</label>
+      <input type="text" name="integraciones" placeholder="Indica cuáles, o escribe 'No' si no aplica">
+      <label>¿Necesita importar datos que ya existen (Excel, otro sistema, etc.)?</label>
+      <div class="radio-row">
+        <label class="radio-pill"><input type="radio" name="importar_datos" value="Sí"> Sí</label>
+        <label class="radio-pill"><input type="radio" name="importar_datos" value="No"> No</label>
+        <label class="radio-pill"><input type="radio" name="importar_datos" value="No estoy seguro"> No estoy seguro</label>
+      </div>
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">06</p>
+      <h2>Plazos y presupuesto</h2>
+      <label class="first">¿Tienen una fecha límite para tenerlo funcionando?</label>
+      <input type="text" name="plazo" placeholder="Ej: en 2 meses, antes de fin de año, sin urgencia...">
+      <label>¿Tienen un presupuesto estimado en mente?</label>
+      <div class="radio-row">
+        <label class="radio-pill"><input type="radio" name="presupuesto" value="Aún no lo defino"> Aún no lo defino</label>
+        <label class="radio-pill"><input type="radio" name="presupuesto" value="Menos de $500.000"> Menos de $500.000</label>
+        <label class="radio-pill"><input type="radio" name="presupuesto" value="$500.000 - $1.500.000"> $500.000 - $1.500.000</label>
+        <label class="radio-pill"><input type="radio" name="presupuesto" value="Más de $1.500.000"> Más de $1.500.000</label>
+        <label class="radio-pill"><input type="radio" name="presupuesto" value="Prefiero conversarlo"> Prefiero conversarlo</label>
+      </div>
+    </div>
+
+    <div class="fblock">
+      <p class="fblock-num">07</p>
+      <h2>Algo más que deba saber</h2>
+      <textarea name="mensaje_libre" rows="4" placeholder="Cualquier detalle adicional, contexto del rubro, restricciones, ideas..."></textarea>
+    </div>
+
+    <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+    <input type="hidden" name="_subject" value="Nuevo levantamiento de requerimientos — Homizen">
+
+    <button type="submit">Enviar levantamiento</button>
+    <p class="form-status" aria-live="polite"></p>
+    <p class="privacy-note">Esta información se usa solo para preparar tu cotización. No se comparte con terceros.</p>
+  </form>
+</div>
+
+<footer>HOMIZEN · DESARROLLO DE SOFTWARE A MEDIDA · HOMIZEN.CL</footer>
+
+<script>
+  const briefForm = document.getElementById('brief-form');
+  const status = briefForm.querySelector('.form-status');
+  briefForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    status.textContent = 'Enviando...';
+    status.style.color = 'var(--ink-soft)';
+    try {
+      const response = await fetch(briefForm.action, {
+        method: 'POST',
+        body: new FormData(briefForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        status.textContent = '¡Listo! Recibí tu información y te voy a escribir con una propuesta.';
+        status.style.color = '#b8860b';
+        briefForm.reset();
+        window.scrollTo({ top: briefForm.offsetTop - 40, behavior: 'smooth' });
+      } else {
+        status.textContent = 'Algo falló. Intenta de nuevo o escríbeme a contacto@homizen.cl.';
+        status.style.color = '#c0392b';
+      }
+    } catch (err) {
+      status.textContent = 'Algo falló. Intenta de nuevo o escríbeme a contacto@homizen.cl.';
+      status.style.color = '#c0392b';
+    }
+  });
+</script>
+
+</body>
+</html>
